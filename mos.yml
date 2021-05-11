@@ -1,0 +1,26 @@
+author: DIY365
+type: lib
+description: Mongoose OS bSensors Library
+version: 1.0
+
+cdefs:
+  MGOS_BTHING_HAVE_SENSOR: 1
+
+sources:
+  - src
+
+includes:
+  - include
+
+filesystem:
+  - fs
+
+config_schema:
+
+libs:
+  - origin: https://github.com/diy365-mgos/bthing
+
+tags:
+  - c
+
+manifest_version: 2017-09-29
