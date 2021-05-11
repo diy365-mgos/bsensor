@@ -1,5 +1,5 @@
 #include "mgos.h"
-#include "mgos_bsensor_sdk.h"
+#include "mg_bsensor_sdk.h"
 
 bool mg_bsensor_init(struct mg_bthing_sens *sens,
                     const char *id, int type, 

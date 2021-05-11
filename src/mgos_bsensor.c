@@ -1,5 +1,5 @@
 #include "mgos.h"
-#include "mgos_bsensor_sdk.h"
+#include "mg_bsensor_sdk.h"
 #include "mgos_bsensor.h"
 
 #ifdef MGOS_HAVE_MJS

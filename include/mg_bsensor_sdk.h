@@ -15,11 +15,11 @@
  * limitations under the License.
  */
 
-#ifndef MGOS_BSENSOR_SDK_H_
-#define MGOS_BSENSOR_SDK_H_
+#ifndef MG_BSENSOR_SDK_H_
+#define MG_BSENSOR_SDK_H_
 
 #include <stdbool.h>
-#include "mgos_bthing_sdk.h"
+#include "mg_bthing_sdk.h"
 #include "mgos_bsensor.h"
 
 #ifdef __cplusplus
@@ -59,4 +59,4 @@ void mg_bsensor_reset(struct mg_bthing_sens *sens);
 }
 #endif /* __cplusplus */
 
-#endif /* MGOS_BSENSOR_SDK_H_ */
+#endif /* MG_BSENSOR_SDK_H_ */
