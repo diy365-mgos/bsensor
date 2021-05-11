@@ -7,12 +7,12 @@
 #endif
 
 static void mg_bsensor_poll_cb(void *arg) {
-  mgos_bthing_get_state((mgos_bthing_t)arg);
+  mgos_bthing_get_state(MGOS_BSENSOR_AS_THING((mgos_bsensor_t)arg));
 }
 
 static void mg_bsensor_int_cb(int pin, void *arg) {
   if (arg != NULL && MG_BENSOR_GET_CFG(arg)->int_cfg.pin == pin) {
-    mgos_bthing_get_state((mgos_bthing_t)arg);
+    mgos_bthing_get_state(MGOS_BSENSOR_AS_THING((mgos_bsensor_t)arg));
   }
 }
 
@@ -48,7 +48,7 @@ bool mgos_bsensor_interrupt_set(mgos_bsensor_t sensor, int pin,
   struct mg_bsensor_int_cfg *cfg = &(MG_BENSOR_GET_CFG(sensor)->int_cfg);
   if (cfg->pin != MGOS_BTHING_NO_PIN) {
     LOG(LL_ERROR, ("Sensor '%s' already configured to use interrupt on pin %d.",
-      mgos_bthing_get_id((mgos_bthing_t)sensor), cfg->pin));
+      mgos_bthing_get_id(MGOS_BSENSOR_AS_THING(sensor)), cfg->pin));
     return false;
   }
   if (pin != MGOS_BTHING_NO_PIN && int_mode != MGOS_GPIO_INT_NONE) {
@@ -58,11 +58,11 @@ bool mgos_bsensor_interrupt_set(mgos_bsensor_t sensor, int pin,
       cfg->pull_type = pull_type;
       cfg->debounce = debounce;
       LOG(LL_INFO, ("Interrupt pin %d successfully set for sensor '%s'.", pin,
-        mgos_bthing_get_id((mgos_bthing_t)sensor)));
+        mgos_bthing_get_id(MGOS_BSENSOR_AS_THING(sensor))));
       return true;
     }
     LOG(LL_ERROR, ("Unable to set interrupt on pin %d for sensor '%s'.",
-      pin, mgos_bthing_get_id((mgos_bthing_t)sensor)));
+      pin, mgos_bthing_get_id(MGOS_BSENSOR_AS_THING(sensor))));
   }
   LOG(LL_ERROR, ("Unable to set interrupt. Wrong int_pin (%d) or int_mode (%d) parameters.", pin, int_mode));
   return false;

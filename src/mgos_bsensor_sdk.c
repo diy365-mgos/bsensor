@@ -7,9 +7,9 @@ bool mg_bsensor_init(struct mg_bthing_sens *sens,
   if (mg_bthing_sens_init(sens, id,  (type | MGOS_BSENSOR_TYPE), notify_state)) {
     sens->cfg = calloc(1, sizeof(struct mg_bsensor_cfg));
     if (sens->cfg) {
-      ((struct mg_bsensor_cfg *)sens->cfg)->poll_cfg.poll_ticks = MGOS_BTHING_NO_TICKS;
-      ((struct mg_bsensor_cfg *)sens->cfg)->poll_cfg.timer_id = MGOS_INVALID_TIMER_ID;
-      ((struct mg_bsensor_cfg *)sens->cfg)->int_cfg.pin = MGOS_BTHING_NO_PIN;
+      MG_BENSOR_GET_CFG(sens)->poll_cfg.poll_ticks = MGOS_BTHING_NO_TICKS;
+      MG_BENSOR_GET_CFG(sens)->poll_cfg.timer_id = MGOS_INVALID_TIMER_ID;
+      MG_BENSOR_GET_CFG(sens)->int_cfg.pin = MGOS_BTHING_NO_PIN;
       return true;
     }
     mg_bthing_sens_reset(sens);
