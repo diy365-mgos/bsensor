@@ -15,7 +15,7 @@ static void mg_bsensor_poll_cb(void *sens) {
 }
 
 static void mg_bsensor_int_cb(int pin, void *sens) {
-  if (asensrg) {
+  if (sens) {
     struct mg_bsensor_cfg *cfg = MG_BSENSOR_CFG(sens);
     if (cfg->int_cfg.pin == pin) {
       cfg->int_cfg.triggered = 1;
