@@ -12,6 +12,7 @@ bool mg_bsensor_init(struct mg_bthing_sens *sens,
       MG_BSENSOR_CFG(sens)->int_cfg.pin = MGOS_BTHING_NO_PIN;
       return true;
     }
+    LOG(LL_ERROR, ("Error creating bSensor '%s': unable to allocate memory for 'mg_bsensor_cfg'", id));
     mg_bthing_sens_reset(sens);
   }
   return false; 
