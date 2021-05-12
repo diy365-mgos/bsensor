@@ -11,6 +11,8 @@ enum MG_BTHING_STATE_RESULT mg_bsensor_getting_state_cb(struct mg_bthing_sens *s
       /* invoke the handler only if interrupt mode is OFF or if an interrupt has been triggerd */
       return cfg->base_class.getting_state_cb(sens, state, userdata);
     }
+    LOG(LL_ERROR, ("Getting state for bSensor '%s' when interrupt mode is active is not allowed.",
+      mgos_bthing_get_id((mgos_bthing_t)sens)));
   }
   return MG_BTHING_STATE_RESULT_ERROR;
 }
