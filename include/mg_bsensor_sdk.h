@@ -44,9 +44,14 @@ struct mg_bsensor_poll_cfg {
   int timer_id;
 };
 
+struct mg_bsensor_base_class {
+  mg_bthing_getting_state_handler_t getting_state_cb;
+};
+
 struct mg_bsensor_cfg {
   struct mg_bsensor_poll_cfg poll_cfg;
   struct mg_bsensor_int_cfg int_cfg;
+  struct mg_bsensor_base_class base_class; 
 };
 
 bool mg_bsensor_init(struct mg_bthing_sens *sens,
