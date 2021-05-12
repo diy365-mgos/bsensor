@@ -37,6 +37,7 @@ struct mg_bsensor_int_cfg {
   enum mgos_gpio_pull_type pull_type;
   enum mgos_gpio_int_mode int_mode;
   int debounce;
+  unsigned char triggered;
 };
 
 struct mg_bsensor_poll_cfg {

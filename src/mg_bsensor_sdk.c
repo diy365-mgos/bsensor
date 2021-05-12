@@ -7,10 +7,10 @@ enum MG_BTHING_STATE_RESULT mg_bsensor_getting_state_cb(struct mg_bthing_sens *s
                                                         void *userdata) {
   if (sens && state) {
     struct mg_bsensor_cfg *cfg = MG_BSENSOR_CFG(sens);
-    if (cfg->int_cfg.pin == MGOS_BTHING_NO_PIN)
+    if (cfg->int_cfg.pin == MGOS_BTHING_NO_PIN || cfg->int_cfg.triggered == 1) {
+      /* invoke the handler only if interrupt mode is OFF or if an interrupt has been triggerd */
       return cfg->base_class.getting_state_cb(sens, state, userdata);
-    else
-      return MG_BTHING_STATE_RESULT_NO_HANDLER;
+    }
   }
   return MG_BTHING_STATE_RESULT_ERROR;
 }
