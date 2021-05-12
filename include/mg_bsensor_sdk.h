@@ -26,11 +26,11 @@
 extern "C" {
 #endif
 
-#define MG_BENSOR_NEW(s) MG_BTHING_SENS_NEW(s);
+#define MG_BSENSOR_NEW(s) MG_BTHING_SENS_NEW(s);
 
-#define MG_BENSOR_BASE_CAST(s) ((struct mg_bthing_sens *)s)
+#define MG_BSENSOR_DOWNCAST(s) ((struct mg_bthing_sens *)s)
 
-#define MG_BENSOR_GET_CFG(s) ((struct mg_bsensor_cfg *)MG_BENSOR_BASE_CAST(s)->cfg)
+#define MG_BSENSOR_CFG(s) ((struct mg_bsensor_cfg *)MG_BSENSOR_DOWNCAST(s)->cfg)
 
 struct mg_bsensor_int_cfg {
   int pin;
