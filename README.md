@@ -44,6 +44,8 @@ enum mgos_app_init_result mgos_app_init(void) {
 }
 ```
 Example #2 - Create a *bSensor* for reading a *pressed/released* button state.
+
+![Example #2 schema](docs/example_2_schema.png)
 ```c
 #include "mgos.h"
 #include "mgos_bsensor.h"
@@ -78,3 +80,5 @@ enum mgos_app_init_result mgos_app_init(void) {
   return MGOS_APP_INIT_SUCCESS;
 }
 ```
+## To Do
+- Implement javascript APIs for [Mongoose OS MJS](https://github.com/mongoose-os-libs/mjs).
