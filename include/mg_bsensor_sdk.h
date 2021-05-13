@@ -28,9 +28,13 @@ extern "C" {
 
 #define MG_BSENSOR_NEW(s) MG_BTHING_SENS_NEW(s);
 
-#define MG_BSENSOR_DOWNCAST(s) ((struct mg_bthing_sens *)s)
+/*****************************************
+ * Cast Functions
+ */
+inline struct mg_bthing_sens *MG_BSENSOR_CAST1(mgos_bsensor_t thing) { return (struct mg_bthing_sens *)thing; }
+/*****************************************/
 
-#define MG_BSENSOR_CFG(s) ((struct mg_bsensor_cfg *)MG_BSENSOR_DOWNCAST(s)->cfg)
+#define MG_BSENSOR_CFG(s) ((struct mg_bsensor_cfg *)MG_BSENSOR_CAST1(s)->cfg)
 
 struct mg_bsensor_int_cfg {
   int pin;

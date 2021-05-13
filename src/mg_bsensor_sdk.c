@@ -12,7 +12,7 @@ enum MG_BTHING_STATE_RESULT mg_bsensor_getting_state_cb(struct mg_bthing_sens *s
       return cfg->base_class.getting_state_cb(sens, state, userdata);
     }
     LOG(LL_DEBUG, ("Getting state for bSensor '%s' when interrupt mode is active is not allowed.",
-      mgos_bthing_get_id((mgos_bthing_t)sens)));
+      mgos_bthing_get_id(MG_BTHING_SENS_CAST4(sens))));
   }
   return MG_BTHING_STATE_RESULT_ERROR;
 }
