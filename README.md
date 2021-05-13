@@ -105,7 +105,6 @@ Creates a *bSensor*. Returns `NULL` on error.
 |notify_state|The [notify-state mode](https://github.com/diy365-mgos/bthing#enum-mgos_bthing_notify_state).|
 ### mgos_bsensor_polling_set
 ```c
-mgos_
 bool mgos_bsensor_polling_set(mgos_bsensor_t sensor, int poll_ticks);
 ```
 Activates the polling mode for updating a *bSensor* state. It cannot be activated if the *bSensor* is in interrupt mode (see `mgos_bsensor_interrupt_set()` below). Returns `true` on success, or `false` otherwise.
@@ -116,7 +115,6 @@ Activates the polling mode for updating a *bSensor* state. It cannot be activate
 |poll_ticks|The polling interval, in milliseconds.|
 ### mgos_bsensor_interrupt_set
 ```c
-mgos_
 bool mgos_bsensor_interrupt_set(mgos_bsensor_t sensor, int pin,
                                 enum mgos_gpio_pull_type pull_type,
                                 enum mgos_gpio_int_mode int_mode,
