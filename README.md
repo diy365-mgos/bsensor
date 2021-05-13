@@ -45,7 +45,10 @@ enum mgos_app_init_result mgos_app_init(void) {
 ```
 Example #2 - Create a *bSensor* for reading a *pressed/released* button state.
 
-![Example #2 schema](docs/example_2_schema.png)
+|Hardware prerequisite||
+|-|----|
+|Before running the code sample below, you must wire your board as per the schema here on the right.|![Example #2 schema](docs/example_2_schema.png)|
+
 ```c
 #include "mgos.h"
 #include "mgos_bsensor.h"
@@ -80,5 +83,53 @@ enum mgos_app_init_result mgos_app_init(void) {
   return MGOS_APP_INIT_SUCCESS;
 }
 ```
+## C/C++ APIs Reference
+### MGOS_BSENSOR_DOWNCAST
+```c
+mgos_bthing_t MGOS_BSENSOR_DOWNCAST(mgos_bsensor_t sensor);
+```
+Casts a *bSensor* to a generic *bThing* to be used with [bThing APIs](https://github.com/diy365-mgos/bthing#cc-apis-reference).
+
+|Parameter||
+|--|--|
+|sensor|A *bSensor*.|
+### mgos_bsensor_create
+```c
+mgos_bsensor_t mgos_bsensor_create(const char *id, enum mgos_bthing_notify_state notify_state);
+```
+Creates a *bSensor*. Returns `NULL` on error.
+
+|Parameter||
+|--|--|
+|id|The *bSensor* ID.|
+|notify_state|The [notify-state mode](https://github.com/diy365-mgos/bthing#enum-mgos_bthing_notify_state).|
+### mgos_bsensor_polling_set
+```c
+mgos_
+bool mgos_bsensor_polling_set(mgos_bsensor_t sensor, int poll_ticks);
+```
+Activates the polling mode for updating a *bSensor* state. It cannot be activated if the *bSensor* is in interrupt mode (see `mgos_bsensor_interrupt_set()` below). Returns `true` on success, or `false` otherwise.
+
+|Parameter||
+|--|--|
+|sensor|A *bSensor*.|
+|poll_ticks|The polling interval, in milliseconds.|
+### mgos_bsensor_interrupt_set
+```c
+mgos_
+bool mgos_bsensor_interrupt_set(mgos_bsensor_t sensor, int pin,
+                                enum mgos_gpio_pull_type pull_type,
+                                enum mgos_gpio_int_mode int_mode,
+                                int debounce);
+```
+Activates the interrupt mode for updating a *bSensor* state when an interrupt is triggered. It cannot be activated if the *bSensor* is in polling mode (see `mgos_bsensor_polling_set()` above). Returns `true` on success, or `false` otherwise.
+
+|Parameter||
+|--|--|
+|sensor|A *bSensor*.|
+|pin|The GPIO pin triggering the interrupt.|
+|pull_type|The GPIO [pull type](https://mongoose-os.com/docs/mongoose-os/api/core/mgos_gpio.h.md#mgos_gpio_set_pull). One of the `MGOS_GPIO_PULL_*` values.|
+|int_mode|The interrupt mode. One of the `MGOS_GPIO_INT_EDGE_*` values (see [mgos_gpio_set_int_handler()](https://mongoose-os.com/docs/mongoose-os/api/core/mgos_gpio.h.md#mgos_gpio_set_int_handler) for more details).|
+|debounce|Debouncing time or `0` to disable it. Typically 50 ms of debouncing time is sufficient.|
 ## To Do
 - Implement javascript APIs for [Mongoose OS MJS](https://github.com/mongoose-os-libs/mjs).
