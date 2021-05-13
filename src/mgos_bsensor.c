@@ -6,6 +6,10 @@
 #include "mjs.h"
 #endif
 
+mgos_bthing_t MGOS_BSENSOR_DOWNCAST(mgos_bsensor_t sensor) {
+  return (mgos_bthing_t)sensor;
+}
+
 static void mg_bsensor_poll_cb(void *sens) {
   mgos_bthing_t thing = MGOS_BSENSOR_DOWNCAST((mgos_bsensor_t)sens);
   if (!mgos_bthing_get_state(thing)) {

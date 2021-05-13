@@ -31,7 +31,9 @@ extern "C" {
 /*****************************************
  * Cast Functions
  */
-inline struct mg_bthing_sens *MG_BSENSOR_CAST1(mgos_bsensor_t thing) { return (struct mg_bthing_sens *)thing; }
+
+// Convert (mgos_bsensor_t) into (mg_bthing_sens *)
+struct mg_bthing_sens *MG_BSENSOR_CAST1(mgos_bsensor_t thing);
 /*****************************************/
 
 #define MG_BSENSOR_CFG(s) ((struct mg_bsensor_cfg *)MG_BSENSOR_CAST1(s)->cfg)

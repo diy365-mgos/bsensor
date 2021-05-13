@@ -2,6 +2,16 @@
 #include "mg_bsensor_sdk.h"
 
 
+/*****************************************
+ * Cast Functions
+ */
+
+// Convert (mgos_bsensor_t) into (mg_bthing_sens *)
+struct mg_bthing_sens *MG_BSENSOR_CAST1(mgos_bsensor_t thing) {
+  return (struct mg_bthing_sens *)thing;
+}
+/*****************************************/
+
 enum MG_BTHING_STATE_RESULT mg_bsensor_getting_state_cb(struct mg_bthing_sens *sens,
                                                         mgos_bvar_t state,
                                                         void *userdata) {
