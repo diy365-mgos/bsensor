@@ -44,7 +44,7 @@ bool mg_bsensor_init(struct mg_bthing_sens *sens,
       return true;
     }
     LOG(LL_ERROR, ("Error creating bSensor '%s': unable to allocate memory for 'mg_bsensor_cfg'", id));
-    mg_bthing_sens_reset(sens);
+    mg_bsensor_reset(sens);
   }
   return false; 
 }
