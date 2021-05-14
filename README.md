@@ -87,7 +87,7 @@ enum mgos_app_init_result mgos_app_init(void) {
 ### Inherited *bThing* APIs
 A *bSensor* inherits [bThing](https://github.com/diy365-mgos/bthing) APIs.
 - [mgos_bthing_get_id()](https://github.com/diy365-mgos/bthing#mgos_bthing_get_id)
-- [mgos_bthing_on_set_state](https://github.com/diy365-mgos/bthing#mgos_bthing_on_set_state)
+- [mgos_bthing_on_get_state](https://github.com/diy365-mgos/bthing#mgos_bthing_on_get_state)
 - [mgos_bthing_get_state()](https://github.com/diy365-mgos/bthing#mgos_bthing_get_state)
 - All other [bThings Core Library](https://github.com/diy365-mgos/bthing) APIs...
   
