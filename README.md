@@ -95,7 +95,7 @@ A *bSensor* inherits [bThing](https://github.com/diy365-mgos/bthing) APIs.
 ```c
 mgos_bthing_t MGOS_BSENSOR_DOWNCAST(mgos_bsensor_t sensor);
 ```
-Casts a *bSensor* to a generic *bThing* to be used with [bThing APIs](https://github.com/diy365-mgos/bthing#cc-apis-reference).
+Casts a *bSensor* to a generic *bThing* to be used with [inherited bThing APIs](#inherited-apis).
 
 |Parameter||
 |--|--|
