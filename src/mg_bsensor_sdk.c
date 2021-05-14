@@ -30,7 +30,7 @@ enum MG_BTHING_STATE_RESULT mg_bsensor_getting_state_cb(struct mg_bthing_sens *s
 bool mg_bsensor_init(struct mg_bthing_sens *sens,
                      const char *id, int type, 
                      enum mgos_bthing_notify_state notify_state) {
-  if (mg_bthing_sens_init(sens, id,  (type | MGOS_BSENSOR_TYPE), notify_state)) {
+  if (mg_bthing_sens_init(sens, id, (type | MGOS_BSENSOR_TYPE), notify_state)) {
     struct mg_bsensor_cfg *cfg = sens->cfg = calloc(1, sizeof(struct mg_bsensor_cfg));
     if (sens->cfg) {
       /* initalize polling cfg */
