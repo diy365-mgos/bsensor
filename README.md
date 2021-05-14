@@ -1,14 +1,16 @@
 # bSensors Library
 ## Overview
-*Coming soon...*
-
+A *bSensor* offers a common set of APIs for managing any kind of phisichal sensor. This allows your firmware interacting with sensors without take care of their hardware caratteristics.
+## Features
+- **Universal value-types** - You can read any sensor value within the supported [bVariant](https://github.com/diy365-mgos/bvar) data-types.
+- **GPIO as sensors** - You can easily manage GPIO as sensors. Just include the [bThings GPIO Library](https://github.com/diy365-mgos/bthing-gpio) in your project.
 ## Get Started
-Include the library into your `mos.yml` file.
+Include the library in your `mos.yml` file.
 ```yaml
 libs:
   - origin: https://github.com/diy365-mgos/bsensor
 ```
-**C/C++ firmware samples** - Copy and paste one of following exaples into your `main.c` project file.
+**C/C++ firmware samples** - Copy and paste one of the following examples in your `main.c` project file.
 
 Example #1 - Create a *bSensor* for reading the system uptime.
 ```c
@@ -81,6 +83,14 @@ enum mgos_app_init_result mgos_app_init(void) {
 }
 ```
 ## C/C++ APIs Reference
+### Inherited APIs
+A *bSensor* inherits [bThing](https://github.com/diy365-mgos/bthing) APIs.
+- [mgos_bthing_get_id()](https://github.com/diy365-mgos/bthing#mgos_bthing_get_id)
+- [mgos_bthing_get_type()](https://github.com/diy365-mgos/bthing#mgos_bthing_get_type)
+- [(mgos_bthing_is_typeof)](https://github.com/diy365-mgos/bthing#mgos_bthing_is_typeof)
+- [mgos_bthing_get_state()](https://github.com/diy365-mgos/bthing#mgos_bthing_get_state)
+- All other [bThings Core Library](https://github.com/diy365-mgos/bthing) APIs...
+  
 ### MGOS_BSENSOR_DOWNCAST
 ```c
 mgos_bthing_t MGOS_BSENSOR_DOWNCAST(mgos_bsensor_t sensor);
@@ -90,6 +100,12 @@ Casts a *bSensor* to a generic *bThing* to be used with [bThing APIs](https://gi
 |Parameter||
 |--|--|
 |sensor|A *bSensor*.|
+
+Example:
+```c
+mgos_bsensor_t sensor = mgos_bsensor_create(...);
+printf("Sensor %s successfully created", mgos_bthing_get_id(MGOS_BSENSOR_DOWNCAST(sensor)));
+```
 ### mgos_bsensor_create
 ```c
 mgos_bsensor_t mgos_bsensor_create(const char *id, enum mgos_bthing_notify_state notify_state);
