@@ -32,7 +32,7 @@ extern "C" {
  * Cast Functions
  */
 
-// Convert (mgos_bsensor_t) into (mg_bthing_sens *)
+// Convert (mgos_bsensor_t) into (struct mg_bthing_sens *)
 struct mg_bthing_sens *MG_BSENSOR_CAST1(mgos_bsensor_t thing);
 /*****************************************/
 
