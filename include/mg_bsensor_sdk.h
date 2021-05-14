@@ -62,8 +62,8 @@ struct mg_bsensor_cfg {
 };
 
 bool mg_bsensor_init(struct mg_bthing_sens *sens,
-                    const char *id, int type, 
-                    enum mgos_bthing_notify_state notify_state);
+                     const char *id, int type, 
+                     enum mgos_bthing_notify_state notify_state);
 
 void mg_bsensor_reset(struct mg_bthing_sens *sens);
 
