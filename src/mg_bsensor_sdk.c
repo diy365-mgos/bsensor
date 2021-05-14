@@ -29,6 +29,8 @@ enum MG_BTHING_STATE_RESULT mg_bsensor_getting_state_cb(struct mg_bthing_sens *s
 
 bool mg_bsensor_init(struct mg_bthing_sens *sens) {
   if (mg_bthing_sens_init(sens)) {
+    struct mg_bthing *t = MG_BTHING_SENS_CAST3(sens);
+
     struct mg_bsensor_cfg *cfg = sens->cfg = calloc(1, sizeof(struct mg_bsensor_cfg));
     if (sens->cfg) {
       /* initalize polling cfg */
@@ -38,10 +40,9 @@ bool mg_bsensor_init(struct mg_bthing_sens *sens) {
       cfg->int_cfg.pin = MGOS_BTHING_NO_PIN;
       /* initalize base-class cfg */
       cfg->base_class.getting_state_cb = mg_bthing_on_getting_state(sens, mg_bsensor_getting_state_cb);
-      
       return true;
     }
-    LOG(LL_ERROR, ("Error creating bSensor '%s': unable to allocate memory for 'mg_bsensor_cfg'", id));
+    LOG(LL_ERROR, ("Error creating bSensor '%s': unable to allocate memory for 'mg_bsensor_cfg'", t->id));
     mg_bsensor_reset(sens);
   }
   return false; 
