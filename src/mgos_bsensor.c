@@ -7,7 +7,7 @@
 #endif
 
 mgos_bthing_t MGOS_BSENSOR_THINGCAST(mgos_bsensor_t sensor) {
-  return (mgos_bthing_t)sensor;
+  return MG_BTHING_SENS_CAST4(MG_BSENSOR_CAST1(sensor));
 }
 
 static void mg_bsensor_poll_cb(void *sens) {
