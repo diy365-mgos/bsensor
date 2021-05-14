@@ -1,6 +1,7 @@
 # bSensors Library
 ## Overview
-A *bSensor* offers a common set of APIs for managing any kind of phisichal sensor. This allows your firmware interacting with sensors without take care of their hardware caratteristics.
+A *bSensor* offers a common set of APIs for managing any kind of physical sensor. This allows your firmware interacting with sensors without take care of their hardware caratteristics.
+![bSensor blocks diagram](docs/bsensor_blocks_diagram.png)
 ## Features
 - **Universal value-types** - You can read any sensor value within the supported [bVariant](https://github.com/diy365-mgos/bvar) data-types.
 - **GPIO as sensors** - You can easily manage GPIO as sensors. Just include the [bThings GPIO Library](https://github.com/diy365-mgos/bthing-gpio) in your project.
