@@ -30,7 +30,7 @@ extern "C" {
 struct mg_bthing_sens;
 typedef struct mg_bthing_sens *mgos_bsensor_t;
 
-mgos_bthing_t MGOS_BSENSOR_DOWNCAST(mgos_bsensor_t sensor);
+mgos_bthing_t MGOS_BSENSOR_THINGCAST(mgos_bsensor_t sensor);
 
 mgos_bsensor_t mgos_bsensor_create(const char *id, enum mgos_bthing_notify_state notify_state);
 

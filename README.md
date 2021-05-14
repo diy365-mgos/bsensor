@@ -25,7 +25,7 @@ static bool sensor_get_state_cb(mgos_bthing_t thing, mgos_bvar_t state, void *us
 
 static void sensor_state_updated_cb(int ev, void *ev_data, void *userdata) {
   mgos_bsensor_t sens = (mgos_bsensor_t)ev_data;
-  mgos_bthing_t thing = MGOS_BSENSOR_DOWNCAST(sens);
+  mgos_bthing_t thing = MGOS_BSENSOR_THINGCAST(sens);
   mgos_bvarc_t state = mgos_bthing_get_state(thing);
 
   LOG(LL_INFO, ("Sensor '%s' state changed: %f.",
@@ -39,7 +39,7 @@ enum mgos_app_init_result mgos_app_init(void) {
   /* create the sensor */
   mgos_bsensor_t s = mgos_bsensor_create("sens1", MGOS_BTHING_NOTIFY_STATE_ON_CHANGE);
   /* set the get-state hadnler */
-  mgos_bthing_on_get_state(MGOS_BSENSOR_DOWNCAST(s), sensor_get_state_cb, NULL);
+  mgos_bthing_on_get_state(MGOS_BSENSOR_THINGCAST(s), sensor_get_state_cb, NULL);
   /* set sensor read polling every 2 secs. */
   mgos_bsensor_polling_set(s, 2000);
   
@@ -62,7 +62,7 @@ static bool sensor_get_state_cb(mgos_bthing_t thing, mgos_bvar_t state, void *us
 
 static void sensor_state_updated_cb(int ev, void *ev_data, void *userdata) {
   mgos_bsensor_t sens = (mgos_bsensor_t)ev_data;
-  mgos_bthing_t thing = MGOS_BSENSOR_DOWNCAST(sens);
+  mgos_bthing_t thing = MGOS_BSENSOR_THINGCAST(sens);
   mgos_bvarc_t state = mgos_bthing_get_state(thing);
 
   LOG(LL_INFO, ("The button '%s' (on GPIO %d) has been %s.",
@@ -76,7 +76,7 @@ enum mgos_app_init_result mgos_app_init(void) {
   /* create the sensor */
   mgos_bsensor_t s = mgos_bsensor_create("btn1", MGOS_BTHING_NOTIFY_STATE_ON_CHANGE);
   /* set the get-state hadnler */
-  mgos_bthing_on_get_state(MGOS_BSENSOR_DOWNCAST(s), sensor_get_state_cb, NULL);
+  mgos_bthing_on_get_state(MGOS_BSENSOR_THINGCAST(s), sensor_get_state_cb, NULL);
   /* set sensor read polling every 2 secs. */
   mgos_bsensor_interrupt_set(s, gpio_pin, MGOS_GPIO_PULL_UP, MGOS_GPIO_INT_EDGE_ANY, 50);
   
@@ -92,9 +92,9 @@ A *bSensor* inherits [bThing](https://github.com/diy365-mgos/bthing) APIs.
 - [mgos_bthing_get_state()](https://github.com/diy365-mgos/bthing#mgos_bthing_get_state)
 - All other [bThings Core Library](https://github.com/diy365-mgos/bthing) APIs...
   
-### MGOS_BSENSOR_DOWNCAST
+### MGOS_BSENSOR_THINGCAST
 ```c
-mgos_bthing_t MGOS_BSENSOR_DOWNCAST(mgos_bsensor_t sensor);
+mgos_bthing_t MGOS_BSENSOR_THINGCAST(mgos_bsensor_t sensor);
 ```
 Casts a *bSensor* to a generic *bThing* to be used with [inherited bThing APIs](#inherited-apis).
 
@@ -105,7 +105,7 @@ Casts a *bSensor* to a generic *bThing* to be used with [inherited bThing APIs](
 Example:
 ```c
 mgos_bsensor_t sensor = mgos_bsensor_create(...);
-printf("Sensor %s successfully created", mgos_bthing_get_id(MGOS_BSENSOR_DOWNCAST(sensor)));
+printf("Sensor %s successfully created", mgos_bthing_get_id(MGOS_BSENSOR_THINGCAST(sensor)));
 ```
 ### mgos_bsensor_create
 ```c
