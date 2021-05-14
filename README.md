@@ -43,12 +43,9 @@ enum mgos_app_init_result mgos_app_init(void) {
   return MGOS_APP_INIT_SUCCESS;
 }
 ```
-Example #2 - Create a *bSensor* for reading a *pressed/released* button state.
+Example #2 - Create a *bSensor* for reading a *pressed/released* button state. Before running the code sample, you must wire your boardas indicated in the schema below. 
 
-|Hardware prerequisite||
-|-|----|
-|Before running the code sample below, you must wire your board as per the schema here on the right.|![Example #2 schema](docs/example_2_schema.png)|
-
+![Example #2 schema](docs/example_2_schema.png)
 ```c
 #include "mgos.h"
 #include "mgos_bsensor.h"
