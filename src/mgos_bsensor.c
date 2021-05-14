@@ -44,8 +44,8 @@ mgos_bsensor_t mgos_bsensor_create(const char *id, enum mgos_bthing_notify_state
 }
 
 bool mgos_bsensor_polling_set(mgos_bsensor_t sensor, int poll_ticks) {
-
-  if (sensor && (poll_ticks > 0)) {
+  if (!sensor) return false;
+  if (poll_ticks > 0) {
     if (MG_BSENSOR_CFG(sensor)->int_cfg.pin == MGOS_BTHING_NO_PIN) {
       struct mg_bsensor_poll_cfg *cfg = &(MG_BSENSOR_CFG(sensor)->poll_cfg);
       if (cfg->timer_id == MGOS_INVALID_TIMER_ID) {
@@ -78,7 +78,15 @@ bool mgos_bsensor_interrupt_set(mgos_bsensor_t sensor, int pin,
                                 enum mgos_gpio_pull_type pull_type,
                                 enum mgos_gpio_int_mode int_mode,
                                 int debounce) {
-  if (sensor && (pin > MGOS_BTHING_NO_PIN) && (int_mode != MGOS_GPIO_INT_NONE)) {
+  if (!sensor) return false;
+  #if MGOS_BTHING_HAVE_ACTUATORS
+  if (mgos_bthing_is_typeof(MGOS_BSENSOR_DOWNCAST(sensor), MGOS_BTHING_TYPE_ACTUATOR)) {
+    LOG(LL_ERROR, ("Interrupt mode cannot be activated for bSensor '%s' because it is 'MGOS_BTHING_TYPE_ACTUATOR'.",
+      mgos_bthing_get_id(MGOS_BSENSOR_DOWNCAST(sensor))));
+    return false;
+  }
+  #endif
+  if (pin > MGOS_BTHING_NO_PIN && int_mode != MGOS_GPIO_INT_NONE) {
     if (MG_BSENSOR_CFG(sensor)->poll_cfg.poll_ticks == MGOS_BTHING_NO_TICKS) {
       struct mg_bsensor_int_cfg *cfg = &(MG_BSENSOR_CFG(sensor)->int_cfg);
       if (cfg->pin == MGOS_BTHING_NO_PIN) {
