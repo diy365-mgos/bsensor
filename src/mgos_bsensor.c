@@ -35,7 +35,7 @@ static void mg_bsensor_int_cb(int pin, void *sens) {
 
 mgos_bsensor_t mgos_bsensor_create(const char *id, enum mgos_bthing_notify_state notify_state) {
   mgos_bsensor_t MG_BSENSOR_NEW(sens);
-  if (mg_bthing_init(MG_BTHING_SENS_CAST3(sens), id, MGOS_BSENSOR_TYPE), notify_state)) {
+  if (mg_bthing_init(MG_BTHING_SENS_CAST3(sens), id, MGOS_BSENSOR_TYPE, notify_state)) {
     if (mg_bsensor_init(sens)) {
       LOG(LL_INFO, ("bSensor '%s' successfully created.", id));
       return sens;
