@@ -84,7 +84,7 @@ enum mgos_app_init_result mgos_app_init(void) {
 }
 ```
 ## C/C++ APIs Reference
-### Inherited APIs
+### Inherited *bThing* APIs
 A *bSensor* inherits [bThing](https://github.com/diy365-mgos/bthing) APIs.
 - [mgos_bthing_get_id()](https://github.com/diy365-mgos/bthing#mgos_bthing_get_id)
 - [mgos_bthing_get_type()](https://github.com/diy365-mgos/bthing#mgos_bthing_get_type)
@@ -96,7 +96,7 @@ A *bSensor* inherits [bThing](https://github.com/diy365-mgos/bthing) APIs.
 ```c
 mgos_bthing_t MGOS_BSENSOR_THINGCAST(mgos_bsensor_t sensor);
 ```
-Casts a *bSensor* to a generic *bThing* to be used with [inherited bThing APIs](#inherited-apis).
+Casts a *bSensor* to a generic *bThing* to be used with [inherited bThing APIs](#inherited-bthing-apis).
 
 |Parameter||
 |--|--|
