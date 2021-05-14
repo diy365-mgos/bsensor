@@ -51,8 +51,9 @@ bool mg_bsensor_init(struct mg_bthing_sens *sens,
 
 void mg_bsensor_reset(struct mg_bthing_sens *sens) {
   struct mg_bsensor_cfg *cfg = MG_BSENSOR_CFG(sens);
-  mg_bthing_on_getting_state(sens, cfg->base_class.getting_state_cb);
-  cfg->base_class.getting_state_cb = NULL;
-  
+  if (cfg->base_class.getting_state_cb) {
+    mg_bthing_on_getting_state(sens, cfg->base_class.getting_state_cb);
+    cfg->base_class.getting_state_cb = NULL;
+  }
   mg_bthing_sens_reset(sens);
 }
