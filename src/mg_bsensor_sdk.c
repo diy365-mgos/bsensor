@@ -12,20 +12,20 @@ struct mg_bthing_sens *MG_BSENSOR_CAST1(mgos_bsensor_t thing) {
 }
 /*****************************************/
 
-enum MG_BTHING_STATE_RESULT mg_bsensor_getting_state_cb(struct mg_bthing_sens *sens,
+/* enum MG_BTHING_STATE_RESULT mg_bsensor_getting_state_cb(struct mg_bthing_sens *sens,
                                                         mgos_bvar_t state,
                                                         void *userdata) {
   if (sens && state) {
     struct mg_bsensor_cfg *cfg = MG_BSENSOR_CFG(sens);
     if (cfg->int_cfg.pin == MGOS_BTHING_NO_PIN || cfg->int_cfg.triggered == 1) {
-      /* invoke the handler only if interrupt mode is OFF or if an interrupt has been triggerd */
+      // invoke the handler only if interrupt mode is OFF or if an interrupt has been triggerd
       return cfg->base_class.getting_state_cb(sens, state, userdata);
     }
     LOG(LL_DEBUG, ("Getting state for bSensor '%s' when interrupt mode is active is not allowed.",
       mgos_bthing_get_id(MG_BTHING_SENS_CAST4(sens))));
   }
   return MG_BTHING_STATE_RESULT_ERROR;
-}
+} */
 
 bool mg_bsensor_init(struct mg_bthing_sens *sens) {
   if (mg_bthing_sens_init(sens)) {
@@ -37,7 +37,8 @@ bool mg_bsensor_init(struct mg_bthing_sens *sens) {
       /* initalize inerrupt cfg */
       cfg->int_cfg.pin = MGOS_BTHING_NO_PIN;
       /* initalize base-class cfg */
-      cfg->base_class.getting_state_cb = mg_bthing_on_getting_state(sens, mg_bsensor_getting_state_cb);
+      cfg->base_class.getting_state_cb = NULL;
+      //cfg->base_class.getting_state_cb = mg_bthing_on_getting_state(sens, mg_bsensor_getting_state_cb);
       return true;
     }
     LOG(LL_ERROR, ("Error creating bSensor '%s': unable to allocate memory for 'mg_bsensor_cfg'",
@@ -49,9 +50,17 @@ bool mg_bsensor_init(struct mg_bthing_sens *sens) {
 
 void mg_bsensor_reset(struct mg_bthing_sens *sens) {
   struct mg_bsensor_cfg *cfg = MG_BSENSOR_CFG(sens);
+
+  /* clear base-class cfg */
   if (cfg->base_class.getting_state_cb) {
     mg_bthing_on_getting_state(sens, cfg->base_class.getting_state_cb);
     cfg->base_class.getting_state_cb = NULL;
   }
+  /* initalize polling cfg */
+  cfg->poll_cfg.poll_ticks = MGOS_BTHING_NO_TICKS;
+  cfg->poll_cfg.timer_id = MGOS_INVALID_TIMER_ID;
+  /* clear inerrupt cfg */
+  cfg->int_cfg.pin = MGOS_BTHING_NO_PIN;
+
   mg_bthing_sens_reset(sens);
 }
