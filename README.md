@@ -33,14 +33,24 @@ static void sensor_state_updated_cb(int ev, void *ev_data, void *userdata) {
     mgos_bthing_get_id(thing), mgos_bvar_get_decimal(state)));
 }
 
+static void sensor_state_updating_cb(mgos_bthing_t thing, mgos_bvarc_t state, void *userdata) {
+  if (mgos_bvar_is_changed(state)) {
+    LOG(LL_INFO, ("State of '%s' udpated and changed.", mgos_bthing_get_id(thing)));
+  } else {
+    LOG(LL_INFO, ("State of '%s' udpated, but not changed.", mgos_bthing_get_id(thing)));
+  }
+}
+
 enum mgos_app_init_result mgos_app_init(void) {
 
-  mgos_event_add_handler(MGOS_EV_BTHING_STATE_UPDATED, sensor_state_updated_cb, NULL);
+  mgos_event_add_handler(MGOS_EV_BTHING_UPDATING_STATE, sensor_state_updated_cb, NULL);
 
   /* create the sensor */
-  mgos_bsensor_t s = mgos_bsensor_create("sens1", MGOS_BTHING_NOTIFY_STATE_ON_CHANGE);
+  mgos_bsensor_t s = mgos_bsensor_create("sens1", MGOS_BTHING_PUB_STATE_MODE_CHANGED);
   /* set the get-state hadnler */
   mgos_bthing_on_get_state(MGOS_BSENSOR_THINGCAST(s), sensor_get_state_cb, NULL);
+  /* set the updating-state hadnler */
+  mgos_bthing_on_updating_state(MGOS_BSENSOR_THINGCAST(s), sensor_state_updating_cb, NULL);
   /* set sensor read polling every 2 secs. */
   mgos_bsensor_polling_set(s, 2000);
   
@@ -70,14 +80,24 @@ static void sensor_state_updated_cb(int ev, void *ev_data, void *userdata) {
     mgos_bthing_get_id(thing), gpio_pin, (mgos_bvar_get_bool(state) ? "RELEASED" : "PUSHED")));
 }
 
+static void sensor_state_updating_cb(mgos_bthing_t thing, mgos_bvarc_t state, void *userdata) {
+  if (mgos_bvar_is_changed(state)) {
+    LOG(LL_INFO, ("State of '%s' udpated and changed.", mgos_bthing_get_id(thing)));
+  } else {
+    LOG(LL_INFO, ("State of '%s' udpated, but not changed.", mgos_bthing_get_id(thing)));
+  }
+}
+
 enum mgos_app_init_result mgos_app_init(void) {
 
-  mgos_event_add_handler(MGOS_EV_BTHING_STATE_UPDATED, sensor_state_updated_cb, NULL);
+  mgos_event_add_handler(MGOS_EV_BTHING_UPDATING_STATE, sensor_state_updated_cb, NULL);
 
   /* create the sensor */
-  mgos_bsensor_t s = mgos_bsensor_create("btn1", MGOS_BTHING_NOTIFY_STATE_ON_CHANGE);
+  mgos_bsensor_t s = mgos_bsensor_create("btn1", MGOS_BTHING_PUB_STATE_MODE_CHANGED);
   /* set the get-state hadnler */
   mgos_bthing_on_get_state(MGOS_BSENSOR_THINGCAST(s), sensor_get_state_cb, NULL);
+  /* set the updating-state hadnler */
+  mgos_bthing_on_updating_state(MGOS_BSENSOR_THINGCAST(s), sensor_state_updating_cb, NULL);
   /* set sensor read polling every 2 secs. */
   mgos_bsensor_interrupt_set(s, gpio_pin, MGOS_GPIO_PULL_UP, MGOS_GPIO_INT_EDGE_ANY, 50);
   
@@ -90,6 +110,7 @@ A *bSensor* inherits [bThing](https://github.com/diy365-mgos/bthing) APIs.
 - [mgos_bthing_get_id()](https://github.com/diy365-mgos/bthing#mgos_bthing_get_id)
 - [mgos_bthing_on_get_state()](https://github.com/diy365-mgos/bthing#mgos_bthing_on_get_state)
 - [mgos_bthing_get_state()](https://github.com/diy365-mgos/bthing#mgos_bthing_get_state)
+- [mgos_bthing_on_updating_state()](https://github.com/diy365-mgos/bthing#mgos_bthing_on_updating_state)
 - All other [bThings Core Library](https://github.com/diy365-mgos/bthing) APIs...
   
 ### MGOS_BSENSOR_THINGCAST
