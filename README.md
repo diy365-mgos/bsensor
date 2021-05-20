@@ -34,7 +34,6 @@ static void sensor_state_published_cb(int ev, void *ev_data, void *userdata) {
 }
 
 enum mgos_app_init_result mgos_app_init(void) {
-
   mgos_event_add_handler(MGOS_EV_BTHING_PUBLISHING_STATE, sensor_state_published_cb, NULL);
 
   /* create the sensor */
@@ -71,7 +70,6 @@ static void sensor_state_published_cb(int ev, void *ev_data, void *userdata) {
 }
 
 enum mgos_app_init_result mgos_app_init(void) {
-
   mgos_event_add_handler(MGOS_EV_BTHING_PUBLISHING_STATE, sensor_state_published_cb, NULL);
 
   /* create the sensor */
