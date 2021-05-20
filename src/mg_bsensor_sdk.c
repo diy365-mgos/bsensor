@@ -56,7 +56,7 @@ void mg_bsensor_reset(struct mg_bthing_sens *sens) {
     mg_bthing_on_getting_state(sens, cfg->base_class.getting_state_cb);
     cfg->base_class.getting_state_cb = NULL;
   }
-  /* initalize polling cfg */
+  /* clear polling cfg */
   cfg->poll_cfg.poll_ticks = MGOS_BTHING_NO_TICKS;
   cfg->poll_cfg.timer_id = MGOS_INVALID_TIMER_ID;
   /* clear inerrupt cfg */
