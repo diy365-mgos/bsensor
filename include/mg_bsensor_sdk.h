@@ -36,7 +36,7 @@ extern "C" {
 struct mg_bthing_sens *MG_BSENSOR_CAST1(mgos_bsensor_t thing);
 /*****************************************/
 
-#define MG_BSENSOR_CFG(s) ((struct mg_bsensor_cfg *)MG_BSENSOR_CAST1(s)->cfg)
+#define MG_BSENSOR_CFG(s) ((struct mg_bsensor_cfg *)(s ? MG_BSENSOR_CAST1(s)->cfg : NULL))
 
 struct mg_bsensor_int_cfg {
   int pin;
@@ -51,19 +51,19 @@ struct mg_bsensor_poll_cfg {
   int timer_id;
 };
 
-struct mg_bsensor_base_class {
+struct mg_bsensor_overrides {
   mg_bthing_getting_state_handler_t getting_state_cb;
 };
 
 struct mg_bsensor_cfg {
   struct mg_bsensor_poll_cfg poll_cfg;
   struct mg_bsensor_int_cfg int_cfg;
-  struct mg_bsensor_base_class base_class; 
+  struct mg_bsensor_overrides overrides; 
 };
 
-bool mg_bsensor_init(struct mg_bthing_sens *sens);
+bool mg_bsensor_init(mgos_bsensor_t sens);
 
-void mg_bsensor_reset(struct mg_bthing_sens *sens);
+void mg_bsensor_reset(mgos_bsensor_t sens);
 
 #ifdef __cplusplus
 }
