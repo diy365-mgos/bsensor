@@ -111,14 +111,14 @@ printf("Sensor %s successfully created", mgos_bthing_get_id(MGOS_BSENSOR_THINGCA
 ```
 ### mgos_bsensor_create
 ```c
-mgos_bsensor_t mgos_bsensor_create(const char *id, enum mgos_bthing_notify_state notify_state);
+mgos_bsensor_t mgos_bsensor_create(const char *id, enum mgos_bthing_pub_state_mode pub_state_mode);
 ```
 Creates a *bSensor*. Returns `NULL` on error.
 
 |Parameter||
 |--|--|
 |id|The *bSensor* ID.|
-|notify_state|The [notify-state mode](https://github.com/diy365-mgos/bthing#enum-mgos_bthing_notify_state).|
+|pub_state_mode|The [publish-state mode](https://github.com/diy365-mgos/bthing#enum-mgos_bthing_pub_state_mode).|
 ### mgos_bsensor_polling_set
 ```c
 bool mgos_bsensor_polling_set(mgos_bsensor_t sensor, int poll_ticks);
