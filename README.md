@@ -5,7 +5,7 @@ A *bSensor* offers a common set of APIs for managing any kind of physical sensor
 ![bSensor blocks diagram](docs/bsensor_blocks_diagram.png)
 ## Features
 - **Universal value-types** - You can read any sensor value within the supported [bVariant](https://github.com/diy365-mgos/bvar) data-types.
-<!-- - **GPIO as sensors** - You can easily manage GPIO as sensors. Just include the [bThings GPIO Library](https://github.com/diy365-mgos/bthing-gpio) in your project. -->
+<!-- - **GPIO as sensors** - You can easily manage GPIO as sensors. Just include the [bThings GPIO library](https://github.com/diy365-mgos/bthing-gpio) in your project. -->
 ## Get Started
 Include the library in your `mos.yml` file.
 ```yaml
@@ -24,7 +24,7 @@ static bool sensor_get_state_cb(mgos_bthing_t thing, mgos_bvar_t state, void *us
   return true;
 }
 
-static void sensor_state_updated_cb(int ev, void *ev_data, void *userdata) {
+static void sensor_state_published_cb(int ev, void *ev_data, void *userdata) {
   mgos_bsensor_t sens = (mgos_bsensor_t)ev_data;
   mgos_bthing_t thing = MGOS_BSENSOR_THINGCAST(sens);
   mgos_bvarc_t state = mgos_bthing_get_state(thing);
@@ -33,24 +33,14 @@ static void sensor_state_updated_cb(int ev, void *ev_data, void *userdata) {
     mgos_bthing_get_id(thing), mgos_bvar_get_decimal(state)));
 }
 
-static void sensor_state_updating_cb(mgos_bthing_t thing, mgos_bvarc_t state, void *userdata) {
-  if (mgos_bvar_is_changed(state)) {
-    LOG(LL_INFO, ("State of '%s' udpated and changed.", mgos_bthing_get_id(thing)));
-  } else {
-    LOG(LL_INFO, ("State of '%s' udpated, but not changed.", mgos_bthing_get_id(thing)));
-  }
-}
-
 enum mgos_app_init_result mgos_app_init(void) {
 
-  mgos_event_add_handler(MGOS_EV_BTHING_UPDATING_STATE, sensor_state_updated_cb, NULL);
+  mgos_event_add_handler(MGOS_EV_BTHING_PUBLISHING_STATE, sensor_state_published_cb, NULL);
 
   /* create the sensor */
   mgos_bsensor_t s = mgos_bsensor_create("sens1", MGOS_BTHING_PUB_STATE_MODE_CHANGED);
-  /* set the get-state hadnler */
+  /* set the get-state handler */
   mgos_bthing_on_get_state(MGOS_BSENSOR_THINGCAST(s), sensor_get_state_cb, NULL);
-  /* set the updating-state hadnler */
-  mgos_bthing_on_updating_state(MGOS_BSENSOR_THINGCAST(s), sensor_state_updating_cb, NULL);
   /* set sensor read polling every 2 secs. */
   mgos_bsensor_polling_set(s, 2000);
   
@@ -71,7 +61,7 @@ static bool sensor_get_state_cb(mgos_bthing_t thing, mgos_bvar_t state, void *us
   return true;
 }
 
-static void sensor_state_updated_cb(int ev, void *ev_data, void *userdata) {
+static void sensor_state_published_cb(int ev, void *ev_data, void *userdata) {
   mgos_bsensor_t sens = (mgos_bsensor_t)ev_data;
   mgos_bthing_t thing = MGOS_BSENSOR_THINGCAST(sens);
   mgos_bvarc_t state = mgos_bthing_get_state(thing);
@@ -80,30 +70,21 @@ static void sensor_state_updated_cb(int ev, void *ev_data, void *userdata) {
     mgos_bthing_get_id(thing), gpio_pin, (mgos_bvar_get_bool(state) ? "RELEASED" : "PUSHED")));
 }
 
-static void sensor_state_updating_cb(mgos_bthing_t thing, mgos_bvarc_t state, void *userdata) {
-  if (mgos_bvar_is_changed(state)) {
-    LOG(LL_INFO, ("State of '%s' udpated and changed.", mgos_bthing_get_id(thing)));
-  } else {
-    LOG(LL_INFO, ("State of '%s' udpated, but not changed.", mgos_bthing_get_id(thing)));
-  }
-}
-
 enum mgos_app_init_result mgos_app_init(void) {
 
-  mgos_event_add_handler(MGOS_EV_BTHING_UPDATING_STATE, sensor_state_updated_cb, NULL);
+  mgos_event_add_handler(MGOS_EV_BTHING_PUBLISHING_STATE, sensor_state_published_cb, NULL);
 
   /* create the sensor */
   mgos_bsensor_t s = mgos_bsensor_create("btn1", MGOS_BTHING_PUB_STATE_MODE_CHANGED);
-  /* set the get-state hadnler */
+  /* set the get-state handler */
   mgos_bthing_on_get_state(MGOS_BSENSOR_THINGCAST(s), sensor_get_state_cb, NULL);
-  /* set the updating-state hadnler */
-  mgos_bthing_on_updating_state(MGOS_BSENSOR_THINGCAST(s), sensor_state_updating_cb, NULL);
   /* set sensor read polling every 2 secs. */
   mgos_bsensor_interrupt_set(s, gpio_pin, MGOS_GPIO_PULL_UP, MGOS_GPIO_INT_EDGE_ANY, 50);
   
   return MGOS_APP_INIT_SUCCESS;
 }
 ```
+[!] Tips&Tricks: use the [bThings GPIO library](https://github.com/diy365-mgos/bthing-gpio) for making the firmware above more simple and lightweight.
 ## C/C++ APIs Reference
 ### Inherited *bThing* APIs
 A *bSensor* inherits [bThing](https://github.com/diy365-mgos/bthing) APIs.
@@ -111,7 +92,7 @@ A *bSensor* inherits [bThing](https://github.com/diy365-mgos/bthing) APIs.
 - [mgos_bthing_on_get_state()](https://github.com/diy365-mgos/bthing#mgos_bthing_on_get_state)
 - [mgos_bthing_get_state()](https://github.com/diy365-mgos/bthing#mgos_bthing_get_state)
 - [mgos_bthing_on_updating_state()](https://github.com/diy365-mgos/bthing#mgos_bthing_on_updating_state)
-- All other [bThings Core Library](https://github.com/diy365-mgos/bthing) APIs...
+- All other [bThings Core library](https://github.com/diy365-mgos/bthing) APIs...
   
 ### MGOS_BSENSOR_THINGCAST
 ```c
