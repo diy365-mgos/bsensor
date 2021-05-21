@@ -43,10 +43,10 @@ mgos_bsensor_t mgos_bsensor_create(const char *id, enum mgos_bthing_pub_state_mo
         return sens;
       }
       mg_bthing_reset(MG_BTHING_SENS_CAST3(sens));
-      free(cfg);
     } else {
       LOG(LL_ERROR, ("Unable to allocate memory for 'mg_bsensor_cfg'"));
     }
+    free(cfg);
   }
   free(sens);
   LOG(LL_ERROR, ("Error creating bSensor '%s'. See above error message for more details.'", (id ? id : "")));
