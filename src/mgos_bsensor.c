@@ -36,13 +36,20 @@ static void mg_bsensor_int_cb(int pin, void *sens) {
 mgos_bsensor_t mgos_bsensor_create(const char *id, enum mgos_bthing_pub_state_mode pub_state_mode) {
   mgos_bsensor_t MG_BSENSOR_NEW(sens);
   if (mg_bthing_init(MG_BTHING_SENS_CAST3(sens), id, MGOS_BSENSOR_TYPE, pub_state_mode)) {
-    if (mg_bsensor_init(sens)) {
-      LOG(LL_INFO, ("bSensor '%s' successfully created.", id));
-      return sens;
+    struct mg_bsensor_cfg *cfg = calloc(1, sizeof(struct mg_bsensor_cfg));
+    if (cfg) {
+      if (mg_bsensor_init(sens, cfg)) {
+        LOG(LL_INFO, ("bSensor '%s' successfully created.", id));
+        return sens;
+      }
+      mg_bthing_reset(MG_BTHING_SENS_CAST3(sens));
+      free(cfg);
+    } else {
+      LOG(LL_ERROR, ("Unable to allocate memory for 'mg_bsensor_cfg'"));
     }
-    mg_bthing_reset(MG_BTHING_SENS_CAST3(sens));
   }
   free(sens);
+  LOG(LL_ERROR, ("Error creating bSensor '%s'. See above error message for more details.'", (id ? id : "")));
   return NULL; 
 }
 
@@ -105,7 +112,7 @@ bool mgos_bsensor_interrupt_set(mgos_bsensor_t sensor, int pin,
         }
 
       } else {
-        LOG(LL_ERROR, ("bSensor interrupt mode already configured on pin %d.).", cfg->pin));
+        LOG(LL_ERROR, ("bSensor interrupt mode already configured on pin %d.", cfg->pin));
       }
 
     } else {

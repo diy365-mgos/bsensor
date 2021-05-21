@@ -61,7 +61,7 @@ struct mg_bsensor_cfg {
   struct mg_bsensor_overrides overrides; 
 };
 
-bool mg_bsensor_init(mgos_bsensor_t sens);
+bool mg_bsensor_init(mgos_bsensor_t sens, struct mg_bsensor_cfg *cfg);
 
 void mg_bsensor_reset(mgos_bsensor_t sens);
 
