@@ -44,7 +44,7 @@ enum mgos_app_init_result mgos_app_init(void) {
 }
 ```
 #### Example 2 - Push button
-Create a bSensor for reading a *pressed/released* button state. Before running the code sample, you must wire your boardas indicated in the schema below. 
+Create a bSensor for reading a *pressed/released* button state (see a [similar example](https://github.com/diy365-mgos/bbinsensor#example-1---push-button), but a using [bBinarySensor](https://github.com/diy365-mgos/bbinsensor)). Before running the code sample, you must wire your boardas indicated in the schema below. 
 
 ![Example 2 - schema](docs/example_2_schema.png)
 
