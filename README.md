@@ -12,7 +12,8 @@ Copy and paste one of the following examples in your `main.c` project file. Incl
 libs:
   - origin: https://github.com/diy365-mgos/bsensor
 ```
-#### Example 1 - Create a bSensor for reading the system uptime.
+#### Example 1 - System uptime sensor
+Create a bSensor for reading the system uptime.
 ```c
 #include "mgos.h"
 #include "mgos_bsensor.h"
