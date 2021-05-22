@@ -7,7 +7,7 @@ A bSensor offers a common set of APIs for managing any kind of physical sensor. 
 - **Universal value-types** - You can read any sensor value within the supported [bVariant](https://github.com/diy365-mgos/bvar) data-types.
 - **GPIO as sensors** - You can easily manage GPIO as sensors. Just include the [bThings GPIO library](https://github.com/diy365-mgos/bthing-gpio) in your project.
 ## Get Started in C/C++
-Copy and paste one of the following examples in your `main.c` project file. Include the library in your `mos.yml` file.
+Include the library in your `mos.yml` file.
 ```yaml
 libs:
   - origin: https://github.com/diy365-mgos/bsensor
