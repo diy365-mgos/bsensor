@@ -20,7 +20,7 @@ bool mg_bsensor_init(mgos_bsensor_t sens, struct mg_bsensor_cfg *cfg) {
       cfg->poll_cfg.timer_id = MGOS_INVALID_TIMER_ID;
       /* initalize inerrupt cfg */
       cfg->int_cfg.pin = MGOS_BTHING_NO_PIN;
-      /* initalize base-class cfg */
+      /* initalize overrides cfg */
       cfg->overrides.getting_state_cb = NULL;
 
       return true;
@@ -38,7 +38,7 @@ bool mg_bsensor_init(mgos_bsensor_t sens, struct mg_bsensor_cfg *cfg) {
 void mg_bsensor_reset(mgos_bsensor_t sens) {
   struct mg_bsensor_cfg *cfg = MG_BSENSOR_CFG(sens);
 
-  /* clear base-class cfg */
+  /* clear overrides cfg */
   if (cfg->overrides.getting_state_cb) {
     mg_bthing_on_getting_state(sens, cfg->overrides.getting_state_cb);
     cfg->overrides.getting_state_cb = NULL;
@@ -49,5 +49,6 @@ void mg_bsensor_reset(mgos_bsensor_t sens) {
   /* clear inerrupt cfg */
   cfg->int_cfg.pin = MGOS_BTHING_NO_PIN;
 
+  // reset sensor-base object
   mg_bthing_sens_reset(MG_BSENSOR_CAST1(sens));
 }
