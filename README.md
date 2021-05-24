@@ -72,11 +72,11 @@ enum mgos_app_init_result mgos_app_init(void) {
   mgos_event_add_handler(MGOS_EV_BTHING_PUBLISHING_STATE, sensor_state_published_cb, NULL);
 
   /* create the sensor */
-  mgos_bsensor_t s = mgos_bsensor_create("btn1", MGOS_BTHING_PUB_STATE_MODE_CHANGED);
+  mgos_bsensor_t sens = mgos_bsensor_create("btn1", MGOS_BTHING_PUB_STATE_MODE_CHANGED);
   /* set sensor read polling every 2 secs. */
-  mgos_bsensor_interrupt_set(s, gpio_pin, MGOS_GPIO_PULL_UP, MGOS_GPIO_INT_EDGE_ANY, 50);
+  mgos_bsensor_interrupt_set(sens, gpio_pin, MGOS_GPIO_PULL_UP, MGOS_GPIO_INT_EDGE_ANY, 50);
   /* attach GPIO  */
-  mgos_bthing_gpio_attach(MGOS_BSENSOR_THINGCAST(s), gpio_pin, false, false);
+  mgos_bthing_gpio_attach(MGOS_BSENSOR_THINGCAST(sens), gpio_pin, false, false);
   
   return MGOS_APP_INIT_SUCCESS;
 }
@@ -120,8 +120,8 @@ Casts a bSensor to a generic bThing to be used with [inherited bThing APIs](#inh
 
 Example:
 ```c
-mgos_bsensor_t sensor = mgos_bsensor_create(...);
-printf("Sensor %s successfully created", mgos_bthing_get_id(MGOS_BSENSOR_THINGCAST(sensor)));
+mgos_bsensor_t sens = mgos_bsensor_create(...);
+printf("Sensor %s successfully created", mgos_bthing_get_id(MGOS_BSENSOR_THINGCAST(sens)));
 ```
 ### mgos_bsensor_create
 ```c
