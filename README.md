@@ -97,8 +97,11 @@ The bSensor type ID returned by [mgos_bthing_get_type()](https://github.com/diy3
 
 Example:
 ```c
-if (mgos_bthing_is_typeof(MGOS_BSENSOR_TYPE)) { LOG(LL_INFO, ("I'm a bSensor.")); }
-if (mgos_bthing_is_typeof(MGOS_BTHING_TYPE_SENSOR)) { LOG(LL_INFO, ("I'm a bThing sensor.")); }
+mgos_bsensor_t sens = mgos_bsensor_create(...);
+if (mgos_bthing_is_typeof(MGOS_BSENSOR_THINGCAST(sens), MGOS_BSENSOR_TYPE))
+  LOG(LL_INFO, ("I'm a bSensor."));
+if (mgos_bthing_is_typeof(MGOS_BSENSOR_THINGCAST(sens), MGOS_BTHING_TYPE_SENSOR))
+  LOG(LL_INFO, ("I'm a bThing sensor."));
 ```
 Output console:
 ```bash
