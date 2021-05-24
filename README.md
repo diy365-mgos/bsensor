@@ -121,7 +121,7 @@ Casts a bSensor to a generic bThing to be used with [inherited bThing APIs](#inh
 Example:
 ```c
 mgos_bsensor_t sens = mgos_bsensor_create(...);
-printf("Sensor %s successfully created", mgos_bthing_get_id(MGOS_BSENSOR_THINGCAST(sens)));
+LOG(LL_INFO, ("%s successfully created.", mgos_bthing_get_id(MGOS_BSENSOR_THINGCAST(sens))));
 ```
 ### mgos_bsensor_create
 ```c
