@@ -101,7 +101,7 @@ if (mgos_bthing_is_typeof(MGOS_BSENSOR_TYPE)) LOG(LL_INFO, ("I'm a bSensor."));
 if (mgos_bthing_is_typeof(MGOS_BTHING_TYPE_SENSOR)) LOG(LL_INFO, ("I'm a bThing sensor."));
 ```
 Output console:
-```console
+```shell
 I'm a bSensor.
 I'm a bThing sensor.
 ```
