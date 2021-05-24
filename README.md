@@ -89,7 +89,22 @@ A bSensor inherits [bThing](https://github.com/diy365-mgos/bthing) APIs.
 - [mgos_bthing_get_state()](https://github.com/diy365-mgos/bthing#mgos_bthing_get_state)
 - [mgos_bthing_on_updating_state()](https://github.com/diy365-mgos/bthing#mgos_bthing_on_updating_state)
 - All other [bThings core library](https://github.com/diy365-mgos/bthing) APIs...
-  
+### MGOS_BSENSOR_TYPE
+```c
+#define MGOS_BSENSOR_TYPE 4 
+```
+The bSensor type ID returned by [mgos_bthing_get_type()](https://github.com/diy365-mgos/bthing#mgos_bthing_get_type). It can be used with [mgos_bthing_is_typeof()](https://github.com/diy365-mgos/bthing#mgos_bthing_is_typeof).
+
+Example:
+```c
+if (mgos_bthing_is_typeof(MGOS_BSENSOR_TYPE)) LOG(LL_INFO, ("I'm a bSensor."));
+if (mgos_bthing_is_typeof(MGOS_BTHING_TYPE_SENSOR)) LOG(LL_INFO, ("I'm a bThing sensor."));
+```
+Output console:
+```console
+I'm a bSensor.
+I'm a bThing sensor.
+```
 ### MGOS_BSENSOR_THINGCAST
 ```c
 mgos_bthing_t MGOS_BSENSOR_THINGCAST(mgos_bsensor_t sensor);
