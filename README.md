@@ -23,7 +23,7 @@ static bool sensor_get_state_cb(mgos_bthing_t thing, mgos_bvar_t state, void *us
   return true;
 }
 
-static void sensor_state_published_cb(int ev, void *ev_data, void *userdata) {
+static void sensor_state_changed_cb(int ev, void *ev_data, void *userdata) {
   mgos_bthing_t thing = MGOS_BSENSOR_THINGCAST((mgos_bsensor_t)ev_data);
 
   LOG(LL_INFO, ("Sensor '%s' state changed: %f.",
@@ -31,7 +31,7 @@ static void sensor_state_published_cb(int ev, void *ev_data, void *userdata) {
 }
 
 enum mgos_app_init_result mgos_app_init(void) {
-  mgos_event_add_handler(MGOS_EV_BTHING_PUBLISHING_STATE, sensor_state_published_cb, NULL);
+  mgos_event_add_handler(MGOS_EV_BTHING_STATE_CHANGED, sensor_state_changed_cb, NULL);
 
   /* create the sensor */
   mgos_bsensor_t s = mgos_bsensor_create("sens1", MGOS_BTHING_PUB_STATE_MODE_CHANGED);
@@ -60,7 +60,7 @@ libs:
 
 static int gpio_pin = 14;
 
-static void sensor_state_published_cb(int ev, void *ev_data, void *userdata) {
+static void sensor_state_changed_cb(int ev, void *ev_data, void *userdata) {
   mgos_bthing_t thing = MGOS_BSENSOR_THINGCAST((mgos_bsensor_t)ev_data);
 
   LOG(LL_INFO, ("The button '%s' (on GPIO %d) has been %s.",
@@ -69,7 +69,7 @@ static void sensor_state_published_cb(int ev, void *ev_data, void *userdata) {
 }
 
 enum mgos_app_init_result mgos_app_init(void) {
-  mgos_event_add_handler(MGOS_EV_BTHING_PUBLISHING_STATE, sensor_state_published_cb, NULL);
+  mgos_event_add_handler(MGOS_EV_BTHING_STATE_CHANGED, sensor_state_changed_cb, NULL);
 
   /* create the sensor */
   mgos_bsensor_t sens = mgos_bsensor_create("btn1", MGOS_BTHING_PUB_STATE_MODE_CHANGED);
