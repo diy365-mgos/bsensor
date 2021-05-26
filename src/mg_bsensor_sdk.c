@@ -52,3 +52,7 @@ void mg_bsensor_reset(mgos_bsensor_t sens) {
   // reset sensor-base object
   mg_bthing_sens_reset(MG_BSENSOR_CAST1(sens));
 }
+
+bool mg_bsensor_update_state(mgos_bsensor_t sens) {
+  return (mgos_bthing_get_state(MGOS_BSENSOR_THINGCAST(sens) != NULL);
+}
