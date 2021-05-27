@@ -54,5 +54,5 @@ void mg_bsensor_reset(mgos_bsensor_t sens) {
 }
 
 bool mg_bsensor_update_state(mgos_bsensor_t sens) {
-  return (mgos_bthing_get_state(MGOS_BSENSOR_THINGCAST(sens) != NULL);
+  return (mgos_bthing_get_state(MGOS_BSENSOR_THINGCAST(sens)) != NULL);
 }
