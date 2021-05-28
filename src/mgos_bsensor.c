@@ -36,7 +36,8 @@ mgos_bsensor_t mgos_bsensor_create(const char *id, enum mgos_bthing_pub_state_mo
   if (mg_bthing_init(MG_BTHING_SENS_CAST3(sens), id, MGOS_BSENSOR_TYPE, pub_state_mode)) {
     struct mg_bsensor_cfg *cfg = calloc(1, sizeof(struct mg_bsensor_cfg));
     if (cfg) {
-      if (mg_bsensor_init(sens, cfg)) {
+      if (mg_bsensor_init(sens, cfg) &&
+          mg_bthing_register(MGOS_BSENSOR_THINGCAST(sens))) {
         LOG(LL_INFO, ("bSensor '%s' successfully created.", id));
         return sens;
       }
