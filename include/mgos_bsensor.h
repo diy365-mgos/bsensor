@@ -34,7 +34,7 @@ typedef struct mg_bthing_sens *mgos_bsensor_t;
 
 mgos_bthing_t MGOS_BSENSOR_THINGCAST(mgos_bsensor_t sensor);
 
-mgos_bsensor_t mgos_bsensor_create(const char *id, enum mgos_bthing_pub_state_mode pub_state_mode);
+mgos_bsensor_t mgos_bsensor_create(const char *id);
 
 bool mgos_bsensor_polling_set(mgos_bsensor_t sensor, int poll_ticks);
 
