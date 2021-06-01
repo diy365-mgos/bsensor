@@ -34,7 +34,7 @@ enum mgos_app_init_result mgos_app_init(void) {
   mgos_event_add_handler(MGOS_EV_BTHING_STATE_CHANGED, sensor_state_changed_cb, NULL);
 
   /* create the sensor */
-  mgos_bsensor_t s = mgos_bsensor_create("sens1", MGOS_BTHING_PUB_STATE_MODE_CHANGED);
+  mgos_bsensor_t s = mgos_bsensor_create("sens1");
   /* set the get-state handler */
   mgos_bthing_on_get_state(MGOS_BSENSOR_THINGCAST(s), sensor_get_state_cb, NULL);
   /* set sensor read polling every 2 secs. */
@@ -72,7 +72,7 @@ enum mgos_app_init_result mgos_app_init(void) {
   mgos_event_add_handler(MGOS_EV_BTHING_STATE_CHANGED, sensor_state_changed_cb, NULL);
 
   /* create the sensor */
-  mgos_bsensor_t sens = mgos_bsensor_create("btn1", MGOS_BTHING_PUB_STATE_MODE_CHANGED);
+  mgos_bsensor_t sens = mgos_bsensor_create("btn1");
   /* set sensor interrupt */
   mgos_bsensor_interrupt_set(sens, gpio_pin, MGOS_GPIO_PULL_UP, MGOS_GPIO_INT_EDGE_ANY, 50);
   /* attach GPIO  */
