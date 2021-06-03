@@ -36,9 +36,10 @@ mgos_bthing_t MGOS_BSENSOR_THINGCAST(mgos_bsensor_t sensor);
 
 mgos_bsensor_t mgos_bsensor_create(const char *id);
 
-bool mgos_bsensor_polling_set(mgos_bsensor_t sensor, int poll_ticks);
+bool mgos_bsensor_set_polling(mgos_bsensor_t sensor, int poll_ticks);
+void mgos_bsensor_clear_polling(mgos_bsensor_t sensor);
 
-bool mgos_bsensor_interrupt_set(mgos_bsensor_t sensor, int pin,
+bool mgos_bsensor_set_interrupt(mgos_bsensor_t sensor, int pin,
                                 enum mgos_gpio_pull_type pull_type,
                                 enum mgos_gpio_int_mode int_mode,
                                 int debounce);

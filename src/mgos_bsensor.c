@@ -52,7 +52,7 @@ mgos_bsensor_t mgos_bsensor_create(const char *id) {
   return NULL; 
 }
 
-bool mgos_bsensor_polling_set(mgos_bsensor_t sensor, int poll_ticks) {
+bool mgos_bsensor_set_polling(mgos_bsensor_t sensor, int poll_ticks) {
   if (!sensor) return false;
   if (poll_ticks > 0) {
     if (MG_BSENSOR_CFG(sensor)->int_cfg.pin == MGOS_BTHING_NO_PIN) {
@@ -83,7 +83,17 @@ bool mgos_bsensor_polling_set(mgos_bsensor_t sensor, int poll_ticks) {
   return false;
 }
 
-bool mgos_bsensor_interrupt_set(mgos_bsensor_t sensor, int pin,
+void mgos_bsensor_clear_polling(mgos_bsensor_t sensor) {
+  if (sensor) {
+    struct mg_bsensor_poll_cfg *cfg = &(MG_BSENSOR_CFG(sensor)->poll_cfg);
+    if (cfg->timer_id != MGOS_INVALID_TIMER_ID) {
+      mgos_clear_timer(cfg->timer_id);
+      cfg->timer_id = MGOS_INVALID_TIMER_ID;
+    }
+  }
+}
+
+bool mgos_bsensor_set_interrupt(mgos_bsensor_t sensor, int pin,
                                 enum mgos_gpio_pull_type pull_type,
                                 enum mgos_gpio_int_mode int_mode,
                                 int debounce) {
