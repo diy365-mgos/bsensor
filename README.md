@@ -24,10 +24,10 @@ static bool sensor_get_state_cb(mgos_bthing_t thing, mgos_bvar_t state, void *us
 }
 
 static void sensor_state_changed_cb(int ev, void *ev_data, void *userdata) {
-  mgos_bthing_t thing = MGOS_BSENSOR_THINGCAST((mgos_bsensor_t)ev_data);
+  struct mgos_bthing_state_changed_arg *arg = (struct mgos_bthing_state_changed_arg *)ev_data;
 
   LOG(LL_INFO, ("Sensor '%s' state changed: %f.",
-    mgos_bthing_get_id(thing), mgos_bvar_get_decimal(mgos_bthing_get_state(thing))));
+    mgos_bthing_get_id(arg->thing), mgos_bvar_get_decimal(arg->state)));
 }
 
 enum mgos_app_init_result mgos_app_init(void) {
@@ -61,11 +61,11 @@ libs:
 static int gpio_pin = 14;
 
 static void sensor_state_changed_cb(int ev, void *ev_data, void *userdata) {
-  mgos_bthing_t thing = MGOS_BSENSOR_THINGCAST((mgos_bsensor_t)ev_data);
+  struct mgos_bthing_state_changed_arg *arg = (struct mgos_bthing_state_changed_arg *)ev_data;
 
   LOG(LL_INFO, ("The button '%s' (on GPIO %d) has been %s.",
-    mgos_bthing_get_id(thing), gpio_pin,
-    (mgos_bvar_get_bool(mgos_bthing_get_state(thing)) ? "PUSHED" : "RELEASED")));
+    mgos_bthing_get_id(arg->thing), gpio_pin,
+    (mgos_bvar_get_bool(arg->state) ? "PUSHED" : "RELEASED")));
 }
 
 enum mgos_app_init_result mgos_app_init(void) {
