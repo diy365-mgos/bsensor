@@ -38,7 +38,7 @@ enum mgos_app_init_result mgos_app_init(void) {
   /* set the get-state handler */
   mgos_bthing_on_get_state(MGOS_BSENSOR_THINGCAST(s), sensor_get_state_cb, NULL);
   /* set sensor read polling every 2 secs. */
-  mgos_bsensor_set_polling(s, 2000);
+  mgos_bsensor_update_on_poll(s, 2000);
   
   return MGOS_APP_INIT_SUCCESS;
 }
@@ -74,7 +74,7 @@ enum mgos_app_init_result mgos_app_init(void) {
   /* create the sensor */
   mgos_bsensor_t sens = mgos_bsensor_create("btn1");
   /* set sensor interrupt */
-  mgos_bsensor_set_interrupt(sens, gpio_pin, MGOS_GPIO_PULL_UP, MGOS_GPIO_INT_EDGE_ANY, 50);
+  mgos_bsensor_update_on_int(sens, gpio_pin, MGOS_GPIO_PULL_UP, MGOS_GPIO_INT_EDGE_ANY, 50);
   /* attach GPIO  */
   mgos_bthing_gpio_attach(MGOS_BSENSOR_THINGCAST(sens), gpio_pin, false);
   
@@ -132,33 +132,24 @@ Creates a bSensor. Returns `NULL` on error.
 |Parameter||
 |--|--|
 |id|The bSensor ID.|
-### mgos_bsensor_set_polling
+### mgos_bsensor_update_on_poll
 ```c
-bool mgos_bsensor_set_polling(mgos_bsensor_t sensor, int poll_ticks);
+bool mgos_bsensor_update_on_poll(mgos_bsensor_t sensor, int poll_ticks);
 ```
-Activates the polling mode for updating a bSensor state. It cannot be activated if the bSensor is in interrupt mode (see `mgos_bsensor_set_interrupt()` below). Returns `true` on success, or `false` otherwise.
+Activates the polling mode for updating a bSensor state. It cannot be activated if the bSensor is in interrupt mode (see `mgos_bsensor_update_on_int()` below). Returns `true` on success, or `false` otherwise.
 
 |Parameter||
 |--|--|
 |sensor|A bSensor.|
 |poll_ticks|The polling interval, in milliseconds.|
-### mgos_bsensor_clear_polling
+### mgos_bsensor_update_on_int
 ```c
-void mgos_bsensor_clear_polling(mgos_bsensor_t sensor);
-```
-Stops a bSensor polling.
-
-|Parameter||
-|--|--|
-|sensor|A bSensor.|
-### mgos_bsensor_set_interrupt
-```c
-bool mgos_bsensor_set_interrupt(mgos_bsensor_t sensor, int pin,
+bool mgos_bsensor_update_on_int(mgos_bsensor_t sensor, int pin,
                                 enum mgos_gpio_pull_type pull_type,
                                 enum mgos_gpio_int_mode int_mode,
                                 int debounce);
 ```
-Activates the interrupt mode for updating a bSensor state when an interrupt is triggered. It cannot be activated if the bSensor is in polling mode (see `mgos_bsensor_set_polling()` above). Returns `true` on success, or `false` otherwise.
+Activates the interrupt mode for updating a bSensor state when an interrupt is triggered. It cannot be activated if the bSensor is in polling mode (see `mgos_bsensor_update_on_poll()` above). Returns `true` on success, or `false` otherwise.
 
 |Parameter||
 |--|--|
