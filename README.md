@@ -75,8 +75,8 @@ enum mgos_app_init_result mgos_app_init(void) {
   mgos_bsensor_t sens = mgos_bsensor_create("btn1");
   /* set sensor interrupt */
   mgos_bsensor_update_on_int(sens, gpio_pin, MGOS_GPIO_PULL_UP, MGOS_GPIO_INT_EDGE_ANY, 50);
-  /* attach GPIO  */
-  mgos_bthing_gpio_attach(MGOS_BSENSOR_THINGCAST(sens), gpio_pin, false);
+  /* attach GPIO */
+  mgos_bthing_gpio_attach(MGOS_BSENSOR_THINGCAST(sens), gpio_pin, true, MGOS_BTHING_GPIO_PULL_AUTO);
   
   return MGOS_APP_INIT_SUCCESS;
 }
