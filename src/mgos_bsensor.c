@@ -90,7 +90,7 @@ bool mgos_bsensor_update_on_int(mgos_bsensor_t sensor, int pin,
   if (!sensor) return false;
   #if MGOS_BTHING_HAVE_ACTUATORS
   if (mgos_bthing_is_typeof(MGOS_BSENSOR_THINGCAST(sensor), MGOS_BTHING_TYPE_ACTUATOR)) {
-    LOG(LL_ERROR, ("Interrupt mode cannot be activated for bSensor '%s' because it is 'MGOS_BTHING_TYPE_ACTUATOR'.",
+    LOG(LL_ERROR, ("Interrupt mode cannot be activated for '%s' because of type 'MGOS_BTHING_TYPE_ACTUATOR'.",
       mgos_bthing_get_id(MGOS_BSENSOR_THINGCAST(sensor))));
     return false;
   }
