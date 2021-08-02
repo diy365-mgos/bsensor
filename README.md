@@ -7,13 +7,15 @@ A bSensor offers a common set of APIs for managing any kind of physical sensor. 
 - **Universal value-types** - You can read any sensor value within the supported [bVariant](https://github.com/diy365-mgos/bvar) data-types.
 - **GPIO as sensors** - You can easily manage GPIO as sensors. Just include the [bThings GPIO library](https://github.com/diy365-mgos/bthing-gpio) in your project.
 ## Get Started in C/C++
-Include the library in your `mos.yml` file.
+Copy, build and flash one of the following ready-to-use firmwares.
+#### Example 1 - System uptime sensor
+Create a bSensor for reading the system uptime.
+
+Include these libraries in your `mos.yml` file.
 ```yaml
 libs:
   - origin: https://github.com/diy365-mgos/bsensor
 ```
-#### Example 1 - System uptime sensor
-Create a bSensor for reading the system uptime.
 ```c
 #include "mgos.h"
 #include "mgos_bsensor.h"
@@ -44,13 +46,14 @@ enum mgos_app_init_result mgos_app_init(void) {
 }
 ```
 #### Example 2 - Push button
-Create a bSensor for reading a *pressed/released* button state (see a [similar example](https://github.com/diy365-mgos/bbinsensor#example-1---push-button) using [bBinarySensors](https://github.com/diy365-mgos/bbinsensor)). Before running the code sample, you must wire your boardas indicated in the schema below. 
+Create a bSensor for reading a *pushed/released* button state (see a [similar example](https://github.com/diy365-mgos/bbinsensor#example-1---push-button) using [bBinarySensors](https://github.com/diy365-mgos/bbinsensor)). Before running the code sample, you must wire your boardas indicated in the schema below. 
 
-![Example 2 - schema](docs/example_2_schema.png)
+![Example 2 - schema](docs/example_2_schema_v1.png)
 
-In addition, include this library in your mos.yml file.
+Include these libraries in your `mos.yml` file.
 ```yaml
 libs:
+  - origin: https://github.com/diy365-mgos/bsensor
   - origin: https://github.com/diy365-mgos/bthing-gpio
 ```
 ```c
@@ -58,7 +61,7 @@ libs:
 #include "mgos_bsensor.h"
 #include "mgos_bthing_gpio.h"
 
-static int gpio_pin = 14;
+static int gpio_pin = 0;
 
 static void sensor_state_changed_cb(int ev, void *ev_data, void *userdata) {
   struct mgos_bthing_state_changed_arg *arg = (struct mgos_bthing_state_changed_arg *)ev_data;
@@ -76,7 +79,7 @@ enum mgos_app_init_result mgos_app_init(void) {
   /* set sensor interrupt */
   mgos_bsensor_update_on_int(sens, gpio_pin, MGOS_GPIO_PULL_UP, MGOS_GPIO_INT_EDGE_ANY, 50);
   /* attach GPIO */
-  mgos_bthing_gpio_attach(MGOS_BSENSOR_THINGCAST(sens), gpio_pin, true, MGOS_BTHING_GPIO_PULL_AUTO);
+  mgos_bthing_gpio_attach(MGOS_BSENSOR_THINGCAST(sens), gpio_pin, false, MGOS_GPIO_PULL_UP);
   
   return MGOS_APP_INIT_SUCCESS;
 }
