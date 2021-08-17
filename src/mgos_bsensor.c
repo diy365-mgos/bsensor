@@ -31,9 +31,9 @@ static void mg_bsensor_int_cb(int pin, void *sens) {
   }
 }
 
-mgos_bsensor_t mgos_bsensor_create(const char *id) {
+mgos_bsensor_t mgos_bsensor_create(const char *id, const char *domain) {
   mgos_bsensor_t MG_BSENSOR_NEW(sens);
-  if (mg_bthing_init(MG_BTHING_SENS_CAST3(sens), id, MGOS_BSENSOR_TYPE)) {
+  if (mg_bthing_init(MG_BTHING_SENS_CAST3(sens), id, MGOS_BSENSOR_TYPE, domain)) {
     struct mg_bsensor_cfg *cfg = calloc(1, sizeof(struct mg_bsensor_cfg));
     if (cfg) {
       if (mg_bsensor_init(sens, cfg) &&

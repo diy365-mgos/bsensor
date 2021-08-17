@@ -36,7 +36,7 @@ enum mgos_app_init_result mgos_app_init(void) {
   mgos_event_add_handler(MGOS_EV_BTHING_STATE_CHANGED, sensor_state_changed_cb, NULL);
 
   /* create the sensor */
-  mgos_bsensor_t s = mgos_bsensor_create("sens1");
+  mgos_bsensor_t s = mgos_bsensor_create("sens1", NULL);
   /* set the get-state handler */
   mgos_bthing_on_get_state(MGOS_BSENSOR_THINGCAST(s), sensor_get_state_cb, NULL);
   /* set sensor read polling every 2 secs. */
@@ -75,7 +75,7 @@ enum mgos_app_init_result mgos_app_init(void) {
   mgos_event_add_handler(MGOS_EV_BTHING_STATE_CHANGED, sensor_state_changed_cb, NULL);
 
   /* create the sensor */
-  mgos_bsensor_t sens = mgos_bsensor_create("btn1");
+  mgos_bsensor_t sens = mgos_bsensor_create("btn1", "push-buttons");
   /* set sensor interrupt */
   mgos_bsensor_update_on_int(sens, gpio_pin, MGOS_GPIO_PULL_UP, MGOS_GPIO_INT_EDGE_ANY, 50);
   /* attach GPIO */
@@ -128,13 +128,14 @@ LOG(LL_INFO, ("%s successfully created.", mgos_bthing_get_uid(MGOS_BSENSOR_THING
 ```
 ### mgos_bsensor_create
 ```c
-mgos_bsensor_t mgos_bsensor_create(const char *id);
+mgos_bsensor_t mgos_bsensor_create(const char *id, const char *domain);
 ```
 Creates a bSensor. Returns `NULL` on error.
 
 |Parameter||
 |--|--|
 |id|The bSensor ID.|
+|domain|The domain name or `NULL`.|
 ### mgos_bsensor_update_on_poll
 ```c
 bool mgos_bsensor_update_on_poll(mgos_bsensor_t sensor, int poll_ticks);
