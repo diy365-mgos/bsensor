@@ -31,7 +31,7 @@ bool mg_bsensor_init(mgos_bsensor_t sens, struct mg_bsensor_cfg *cfg) {
   }
 
   LOG(LL_ERROR, ("Error initializing bSensor '%s'. See above error message for more details.'", 
-    mgos_bthing_get_id(MGOS_BSENSOR_THINGCAST(sens))));
+    mgos_bthing_get_uid(MGOS_BSENSOR_THINGCAST(sens))));
   return false; 
 }
 

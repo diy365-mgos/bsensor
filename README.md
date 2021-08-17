@@ -29,7 +29,7 @@ static void sensor_state_changed_cb(int ev, void *ev_data, void *userdata) {
   struct mgos_bthing_state_changed_arg *arg = (struct mgos_bthing_state_changed_arg *)ev_data;
 
   LOG(LL_INFO, ("Sensor '%s' state changed: %f.",
-    mgos_bthing_get_id(arg->thing), mgos_bvar_get_decimal(arg->state)));
+    mgos_bthing_get_uid(arg->thing), mgos_bvar_get_decimal(arg->state)));
 }
 
 enum mgos_app_init_result mgos_app_init(void) {
@@ -67,7 +67,7 @@ static void sensor_state_changed_cb(int ev, void *ev_data, void *userdata) {
   struct mgos_bthing_state_changed_arg *arg = (struct mgos_bthing_state_changed_arg *)ev_data;
 
   LOG(LL_INFO, ("The button '%s' (on GPIO %d) has been %s.",
-    mgos_bthing_get_id(arg->thing), gpio_pin,
+    mgos_bthing_get_uid(arg->thing), gpio_pin,
     (mgos_bvar_get_bool(arg->state) ? "PUSHED" : "RELEASED")));
 }
 
@@ -87,7 +87,7 @@ enum mgos_app_init_result mgos_app_init(void) {
 ## C/C++ APIs Reference
 ### Inherited bThing APIs
 A bSensor inherits [bThing](https://github.com/diy365-mgos/bthing) APIs.
-- [mgos_bthing_get_id()](https://github.com/diy365-mgos/bthing#mgos_bthing_get_id)
+- [mgos_bthing_get_uid()](https://github.com/diy365-mgos/bthing#mgos_bthing_get_uid)
 - [mgos_bthing_on_get_state()](https://github.com/diy365-mgos/bthing#mgos_bthing_on_get_state)
 - [mgos_bthing_get_state()](https://github.com/diy365-mgos/bthing#mgos_bthing_get_state)
 - [mgos_bthing_on_updating_state()](https://github.com/diy365-mgos/bthing#mgos_bthing_on_updating_state)
@@ -124,7 +124,7 @@ Casts a bSensor to a generic bThing to be used with [inherited bThing APIs](#inh
 Example:
 ```c
 mgos_bsensor_t sens = mgos_bsensor_create(...);
-LOG(LL_INFO, ("%s successfully created.", mgos_bthing_get_id(MGOS_BSENSOR_THINGCAST(sens))));
+LOG(LL_INFO, ("%s successfully created.", mgos_bthing_get_uid(MGOS_BSENSOR_THINGCAST(sens))));
 ```
 ### mgos_bsensor_create
 ```c

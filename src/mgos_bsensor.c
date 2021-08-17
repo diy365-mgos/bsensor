@@ -13,7 +13,7 @@ mgos_bthing_t MGOS_BSENSOR_THINGCAST(mgos_bsensor_t sensor) {
 static void mg_bsensor_poll_cb(void *sens) {
   mgos_bthing_t thing = MGOS_BSENSOR_THINGCAST((mgos_bsensor_t)sens);
   if (!mg_bthing_update_state(thing, false)) {
-    LOG(LL_DEBUG, ("Error retrieving the state of bSensor '%s' during the polling callback.", mgos_bthing_get_id(thing)));
+    LOG(LL_DEBUG, ("Error retrieving the state of bSensor '%s' during the polling callback.", mgos_bthing_get_uid(thing)));
   }
 }
 
@@ -24,7 +24,7 @@ static void mg_bsensor_int_cb(int pin, void *sens) {
       cfg->int_cfg.triggered = 1;
       mgos_bthing_t thing = MGOS_BSENSOR_THINGCAST((mgos_bsensor_t)sens);
       if (!mg_bthing_update_state(thing, false)) {
-        LOG(LL_DEBUG, ("Error retrieving the state of bSensor '%s' during the interrupt callback.", mgos_bthing_get_id(thing)));
+        LOG(LL_DEBUG, ("Error retrieving the state of bSensor '%s' during the interrupt callback.", mgos_bthing_get_uid(thing)));
       }
       cfg->int_cfg.triggered = 0;
     }
@@ -79,7 +79,7 @@ bool mgos_bsensor_update_on_poll(mgos_bsensor_t sensor, int poll_ticks) {
   }
 
   LOG(LL_ERROR, ("Unable to set polling for bSensor '%s'. See previous error for more details.",
-    mgos_bthing_get_id(MGOS_BSENSOR_THINGCAST(sensor))));
+    mgos_bthing_get_uid(MGOS_BSENSOR_THINGCAST(sensor))));
   return false;
 }
 
@@ -91,7 +91,7 @@ bool mgos_bsensor_update_on_int(mgos_bsensor_t sensor, int pin,
   #if MGOS_BTHING_HAVE_ACTUATORS
   if (mgos_bthing_is_typeof(MGOS_BSENSOR_THINGCAST(sensor), MGOS_BTHING_TYPE_ACTUATOR)) {
     LOG(LL_ERROR, ("Interrupt mode cannot be activated for '%s' because of type 'MGOS_BTHING_TYPE_ACTUATOR'.",
-      mgos_bthing_get_id(MGOS_BSENSOR_THINGCAST(sensor))));
+      mgos_bthing_get_uid(MGOS_BSENSOR_THINGCAST(sensor))));
     return false;
   }
   #endif
@@ -124,7 +124,7 @@ bool mgos_bsensor_update_on_int(mgos_bsensor_t sensor, int pin,
   }
 
   LOG(LL_ERROR, ("Unable to set interrupt for bSensor '%s'. See previous error for more details.",
-    mgos_bthing_get_id(MGOS_BSENSOR_THINGCAST(sensor))));
+    mgos_bthing_get_uid(MGOS_BSENSOR_THINGCAST(sensor))));
   return false;
 }
 
