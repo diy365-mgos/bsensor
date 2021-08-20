@@ -36,9 +36,9 @@ mgos_bsensor_t mgos_bsensor_create(const char *id, const char *domain) {
   if (mg_bthing_init(MG_BTHING_SENS_CAST3(sens), id, MGOS_BSENSOR_TYPE, domain)) {
     struct mg_bsensor_cfg *cfg = calloc(1, sizeof(struct mg_bsensor_cfg));
     if (cfg) {
-      if (mg_bsensor_init(sens, cfg) &&
-          mg_bthing_register(MGOS_BSENSOR_THINGCAST(sens))) {
-        LOG(LL_INFO, ("bSensor '%s' successfully created.", id));
+      mgos_bthing_t thing = MGOS_BSENSOR_THINGCAST(sens);
+      if (mg_bsensor_init(sens, cfg) && mg_bthing_register(thing)) {
+        LOG(LL_INFO, ("bSensor '%s' successfully created.", mgos_bthing_get_uid(thing)));
         return sens;
       }
       mg_bthing_reset(MG_BTHING_SENS_CAST3(sens));
