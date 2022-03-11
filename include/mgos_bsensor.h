@@ -25,10 +25,6 @@
 extern "C" {
 #endif
 
-// [  ACTUATORS ]-[     SENSORS ]-[ SYS]
-// [][][][][][][]-[][][][][][][1]-[0][0]
-#define MGOS_BSENSOR_TYPE 4 
-
 struct mg_bthing_sens;
 typedef struct mg_bthing_sens *mgos_bsensor_t;
 
