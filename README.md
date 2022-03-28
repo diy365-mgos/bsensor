@@ -94,9 +94,9 @@ A bSensor inherits [bThing](https://github.com/diy365-mgos/bthing) APIs.
 - All other [bThings core library](https://github.com/diy365-mgos/bthing) APIs...
 ### MGOS_BSENSOR_TYPE
 ```c
-#define MGOS_BSENSOR_TYPE 4 
+#define MGOS_BSENSOR_TYPE
 ```
-The bSensor type ID returned by [mgos_bthing_get_type()](https://github.com/diy365-mgos/bthing#mgos_bthing_get_type). It can be used with [mgos_bthing_is_typeof()](https://github.com/diy365-mgos/bthing#mgos_bthing_is_typeof).
+The bSensor type ID. It can be used with [mgos_bthing_is_typeof()](https://github.com/diy365-mgos/bthing#mgos_bthing_is_typeof).
 
 Example:
 ```c
