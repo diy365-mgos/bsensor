@@ -6,7 +6,7 @@ A bSensor offers a common set of APIs for managing any kind of physical sensor. 
 ## Features
 - **Universal value-types** - You can read any sensor value within the supported [bVariant](https://github.com/diy365-mgos/bvar) data-types.
 - **GPIO as sensors** - You can easily manage GPIO as sensors. Just include the [bThings GPIO library](https://github.com/diy365-mgos/bthing-gpio) in your project.
-## Get Started in C/C++
+## GET STARTED
 Copy, build and flash one of the following ready-to-use firmwares.
 #### Example 1 - System uptime sensor
 Create a bSensor for reading the system uptime.
