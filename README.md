@@ -90,7 +90,7 @@ A bSensor inherits [bThing](https://github.com/diy365-mgos/bthing) APIs.
 - [mgos_bthing_get_uid()](https://github.com/diy365-mgos/bthing#mgos_bthing_get_uid)
 - [mgos_bthing_on_get_state()](https://github.com/diy365-mgos/bthing#mgos_bthing_on_get_state)
 - [mgos_bthing_get_state()](https://github.com/diy365-mgos/bthing#mgos_bthing_get_state)
-- [mgos_bthing_on_updating_state()](https://github.com/diy365-mgos/bthing#mgos_bthing_on_updating_state)
+- [mgos_bthing_on_event()](https://github.com/diy365-mgos/bthing#mgos_bthing_on_event)
 - All other [bThings core library](https://github.com/diy365-mgos/bthing) APIs...
 ### MGOS_BSENSOR_TYPE
 ```c
