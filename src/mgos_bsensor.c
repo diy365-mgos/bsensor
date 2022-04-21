@@ -14,7 +14,7 @@ static void mg_bsensor_poll_cb(void *sens) {
   mgos_bthing_t thing = MGOS_BSENSOR_THINGCAST((mgos_bsensor_t)sens);
   //if (!mg_bthing_update_state(thing, false)) {
   //if (!mg_bthing_update_state(thing)) {
-  if (!mgos_bthing_update_state(thing)) {
+  if (!mgos_bthing_update_state(thing, false)) {
     LOG(LL_DEBUG, ("Error retrieving the state of bSensor '%s' during the polling callback.", mgos_bthing_get_uid(thing)));
   }
 }
@@ -27,7 +27,7 @@ static void mg_bsensor_int_cb(int pin, void *sens) {
       mgos_bthing_t thing = MGOS_BSENSOR_THINGCAST((mgos_bsensor_t)sens);
       //if (!mg_bthing_update_state(thing, false)) {
       //if (!mg_bthing_update_state(thing)) {
-      if (!mgos_bthing_update_state(thing)) {
+      if (!mgos_bthing_update_state(thing, false)) {
         LOG(LL_DEBUG, ("Error retrieving the state of bSensor '%s' during the interrupt callback.", mgos_bthing_get_uid(thing)));
       }
       cfg->int_cfg.triggered = 0;
